@@ -38,7 +38,13 @@ const Users = ({ users, ...rest }) => {
         setCurrentPage(pageIndex);
     };
 
-    const filteredUsers = selectedProf ? users.filter((user) => user.profession === selectedProf) : users;
+    const filteredUsers = selectedProf
+        ? users.filter(
+            (user) =>
+                JSON.stringify(user.profession) ===
+                JSON.stringify(selectedProf)
+        )
+        : users;
 
     const count = filteredUsers.length;
     const userCrop = paginate(filteredUsers, currentPage, pageSize);
@@ -51,7 +57,7 @@ const Users = ({ users, ...rest }) => {
 
     return (
         <div className='d-flex'>
-            <div className="d-flex flex-column flex-shrink-0 p-3">
+            <div className='d-flex flex-column flex-shrink-0 p-3'>
                 {professions &&
                     (<GroupList
                         items={professions}
@@ -60,7 +66,7 @@ const Users = ({ users, ...rest }) => {
                     />)}
                 <button onClick={clearFilter} className='btn btn-secondary mt-2'> Сброс фильтра</button>
             </div>
-            <div className="d-flex flex-column">
+            <div className='d-flex flex-column'>
                 <SearchStatus length={count} />
                 {count > 0 && (
                     <table className='table'>
@@ -81,7 +87,7 @@ const Users = ({ users, ...rest }) => {
                         </tbody>
                     </table>
                 )}
-                <div className="div d-flex justify-content-center">
+                <div className='div d-flex justify-content-center'>
                     <Pagination
                         itemsCount={count}
                         pageSize={pageSize}
